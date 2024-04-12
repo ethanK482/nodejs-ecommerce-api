@@ -1,11 +1,11 @@
-import {BaseEntity, Column,Entity,Index,JoinColumn,ManyToOne,OneToOne,PrimaryGeneratedColumn} from "typeorm";
+import {BaseEntity, Column,Entity,Index,JoinColumn,ManyToOne,OneToMany,OneToOne,PrimaryGeneratedColumn} from "typeorm";
 import {User} from './User'
 import {OrderItem} from './OrderItem'
 
 
 @Index("order_userid_foreign",["userId",],{  })
 @Entity("Order" ,{schema:"han_shop" } )
-export  class Order  extends BaseEntity {
+export  class Order extends BaseEntity  {
 
 @PrimaryGeneratedColumn({ type:"bigint", name:"id",unsigned:true })
 id:string;
@@ -43,12 +43,8 @@ createAt:Date;
 @ManyToOne(()=>User,user=>user.orders,{ onDelete:"NO ACTION",onUpdate:"NO ACTION" })
 @JoinColumn([{ name: "userId", referencedColumnName: "id" },
 ])
-
 user:User;
 
-@OneToOne(()=>OrderItem,orderItem=>orderItem.order)
-
-
-orderItem:OrderItem;
-
+@OneToMany(()=>OrderItem,orderItem=>orderItem.order)
+orderItems: OrderItem[];
 }

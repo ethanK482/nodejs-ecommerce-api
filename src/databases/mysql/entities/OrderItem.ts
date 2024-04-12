@@ -13,11 +13,12 @@ export class OrderItem extends BaseEntity {
 
     @Column("int", { name: "quantity" })
     quantity: number;
-    @ManyToOne(() => Order, (order) => order.orderItem, {
+
+    @ManyToOne(() => Order, (order) => order.orderItems, {
         onDelete: "NO ACTION",
         onUpdate: "NO ACTION",
     })
-    @JoinColumn([{ name: "id", referencedColumnName: "id" },
-    ])
-    order: Order
+    @JoinColumn([{ name: "orderId", referencedColumnName: "id" }])
+    order: Order;
+
 }

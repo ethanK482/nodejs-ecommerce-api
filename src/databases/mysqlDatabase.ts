@@ -1,17 +1,14 @@
 import { DataSource } from "typeorm";
 import envConfig from "../utils/envConfig";
 import { Category } from "./mysql/entities/Category";
-import { Color } from "./mysql/entities/Color";
 import { Coupon } from "./mysql/entities/Coupon";
 import { Order } from "./mysql/entities/Order";
 import { OrderItem } from "./mysql/entities/OrderItem";
 import { Product } from "./mysql/entities/Product";
 import { ProductImage } from "./mysql/entities/ProductImage";
 import { Review } from "./mysql/entities/Review";
-import { Size } from "./mysql/entities/Size";
 import { User } from "./mysql/entities/User";
-
-
+import { ProductStock } from "./mysql/entities/ProductStock";
 class MysqlDatabase {
   uiShopConnection = {
     nameSchema: envConfig.getDbName,
@@ -22,9 +19,7 @@ class MysqlDatabase {
       password: envConfig.getDbPassword,
       database: envConfig.getDbName,
       type: 'mysql',
-      entities: [Category, Color, Coupon, Order, OrderItem, Product,
-        ProductImage, Review, Size, User
-      ]//todo: import by path.
+      entities: [Category, Coupon, Order, OrderItem, Product, ProductImage, Review, User, ProductStock],
     })
 
   }

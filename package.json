@@ -29,7 +29,7 @@
     "@types/nodemailer": "^6.4.14",
     "@types/supertest": "^2.0.16",
     "bcrypt": "^5.1.1",
-    "cloudinary": "^2.0.1",
+    "cloudinary": "^2.1.0",
     "cookie-parser": "^1.4.6",
     "cookie-session": "^2.0.0",
     "cors": "^2.8.5",

@@ -21,7 +21,7 @@ class App {
     this.app.use(cors());
     this.app.use(express.json());
     this.app.use(express.urlencoded({ extended: true }));
-    this.app.use(cookieParser())
+    this.app.use(cookieParser());
   }
 
   private routes() {

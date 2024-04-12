@@ -13,9 +13,9 @@ interface CloudinaryConfigOptions {
 }
 // Define the cloudinaryConfig object with type CloudinaryConfigOptions
 const cloudinaryConfig: CloudinaryConfigOptions = {
-  cloud_name: process.env.CLOUDINARY_NAME || "",
-  api_key: process.env.CLOUDINARY_KEY || "",
-  api_secret: process.env.CLOUDINARY_SECRET || "",
+  cloud_name:"dxryr0txi",
+  api_key: "997824516269142",
+  api_secret: "F4Lmw1vIKKWP1Gyc1xym1wZ5Z84"
 };
 
 // Configure Cloudinary
@@ -26,12 +26,12 @@ const storage = new CloudinaryStorage({
   cloudinary: cloudinaryV2,
   params: (req, file) => {
     return {
-      folder: "Han",
+      folder: "han_shop",
     };
-  }, // Chuyển đổi thành kiểu Options
+  },
 });
 
 // Create multer upload
 const uploadCloud = multer({ storage });
 
-export = uploadCloud;
+export default uploadCloud;

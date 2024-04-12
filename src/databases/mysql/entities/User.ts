@@ -4,7 +4,7 @@ import { Order } from "./Order";
 import { Review } from "./Review";
 
 @Entity("User", { schema: "han_shop" })
-export class User extends BaseEntity {
+export class User extends BaseEntity  {
   @PrimaryGeneratedColumn({ type: "bigint", name: "id", unsigned: true })
   id: string;
 

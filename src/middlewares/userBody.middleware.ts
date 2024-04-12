@@ -37,17 +37,6 @@ const loginMiddleware = checkSchema({
 
 });
 
-
-const GetResetTokenMiddleWare = checkSchema({
-
-  email: {
-    isEmail: { errorMessage: "Please enter an email address" },
-    notEmpty: { errorMessage: "Email is required" },
-  },
-
-});
-
-
 const resetPasswordMiddleware = checkSchema({
   encryptEmail: {
     notEmpty: { errorMessage: "Invalid verification" },
@@ -60,12 +49,12 @@ const resetPasswordMiddleware = checkSchema({
     },
   }
 });
-
-const GetVerifyEmailTokenMiddleWare = checkSchema({
-  verifyEmailToken: {
-    notEmpty: { errorMessage: "Verify Email Token is required" },
+const forgotPasswordMiddleWare = checkSchema({
+  email: {
+    notEmpty: { errorMessage: "email is require" },
+  },
+  clientLink: {
+    notEmpty: { errorMessage: "client link is require" },
   }
-
-});
-
-export { registerMiddleware, loginMiddleware, GetResetTokenMiddleWare, resetPasswordMiddleware, GetVerifyEmailTokenMiddleWare }
+})
+export { registerMiddleware, loginMiddleware, resetPasswordMiddleware, forgotPasswordMiddleWare }

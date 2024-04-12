@@ -11,7 +11,7 @@ import { User } from "./User";
 
 @Index("coupon_userid_foreign", ["userId"], {})
 @Entity("Coupon", { schema: "han_shop" })
-export class Coupon extends BaseEntity{
+export class Coupon extends BaseEntity {
   @PrimaryGeneratedColumn({ type: "bigint", name: "id", unsigned: true })
   id: string;
 

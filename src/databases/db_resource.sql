@@ -54,12 +54,7 @@ CREATE TABLE `productImage`(
     `image-url` VARCHAR(255) NOT NULL,
     `priority` INT NOT NULL
 );
-CREATE TABLE `ProductColor`(
-    `ProductId` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
-    `ColorId`  BIGINT UNSIGNED NOT NULL,
-     PRIMARY KEY (`productId`, `ColorId`)
 
-);
 CREATE TABLE `Coupon`(
     `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `code` VARCHAR(255) NOT NULL,
@@ -68,35 +63,24 @@ CREATE TABLE `Coupon`(
     `userId` BIGINT UNSIGNED NOT NULL,
     `discount` INT NOT NULL
 )
-CREATE TABLE `ProductSize`(
-    `productId` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
-    `sizeId`  BIGINT UNSIGNED  NOT NULL,
-      PRIMARY KEY (`productId`, `sizeId`)
 
-)
-CREATE TABLE `size`(
-    `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    `size` VARCHAR(50) NOT NULL
-);
-CREATE TABLE `Color`(
-    `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    `color` VARCHAR(50) NOT NULL
+
+CREATE TABLE `ProductStock`(
+    `productId` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+    `size`  VARCHAR(20) NOT NULL,
+    `color` VARCHAR(20) NOT NULL,
+    `quantity` INT NOT NULL,
+      PRIMARY KEY (`productId`, `size`, `color`)
 )
 ;
 ALTER TABLE
-    `ProductSize` ADD CONSTRAINT `productsize_productid_foreign` FOREIGN KEY(`productId`) REFERENCES `Product`(`id`);
-ALTER TABLE
-    `ProductColor` ADD CONSTRAINT `productcolor_colorid_foreign` FOREIGN KEY(`ColorId`) REFERENCES `Color`(`id`);
-ALTER TABLE
-    `ProductSize` ADD CONSTRAINT `productsize_sizeid_foreign` FOREIGN KEY(`sizeId`) REFERENCES `size`(`id`);
+    `ProductStock` ADD CONSTRAINT `product_stock_foreign` FOREIGN KEY(`productId`) REFERENCES `Product`(`id`);
 ALTER TABLE
     `Product` ADD CONSTRAINT `product_categoryid_foreign` FOREIGN KEY(`categoryId`) REFERENCES `Category`(`id`);
 ALTER TABLE
     `Coupon` ADD CONSTRAINT `coupon_userid_foreign` FOREIGN KEY(`userId`) REFERENCES `User`(`id`);
 ALTER TABLE
     `Order` ADD CONSTRAINT `order_userid_foreign` FOREIGN KEY(`userId`) REFERENCES `User`(`id`);
-ALTER TABLE
-    `ProductColor` ADD CONSTRAINT `productcolor_productid_foreign` FOREIGN KEY(`ProductId`) REFERENCES `Product`(`id`);
 ALTER TABLE
     `Review` ADD CONSTRAINT `review_userid_foreign` FOREIGN KEY(`userId`) REFERENCES `User`(`id`);
 ALTER TABLE
