@@ -109,6 +109,15 @@ class UserController {
       next(error)
     }
   }
+  async logout(request: Request, response: ResponseCustom, next: NextFunction) {
+    try {
+      response.clearCookie("atk");
+      response.clearCookie("rtk");
+      return response.status(HttpStatusCode.OK).json({ message: "Logout successfully" })
+    } catch (error) {
+      next(error)
+    }
+  }
   async userProfile(request: Request, response: ResponseCustom, next: NextFunction) {
     const { userId } = request.userInfo;
     try {
@@ -123,11 +132,11 @@ class UserController {
   }
 
   async forgotPassword(request: Request, response: ResponseCustom, next: NextFunction) {
-  
+
     try {
       const error = validationResult(request);
       if (!error.isEmpty()) throw new RequestValidationError(error.array())
-      const { email, clientLink  } = request.body;
+      const { email, clientLink } = request.body;
       const userExist = await userService.findUserByEmail(email);
       if (!userExist) {
         throw new BadRequestErr({

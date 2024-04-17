@@ -1,18 +1,15 @@
-import { NextFunction, Response, Request } from "express";
-import "express-async-errors";
-import AuthErrorCode from "../utils/ErrorCode";
+import { Request, NextFunction, Response } from "express";
+import ErrorCode from "../utils/ErrorCode";
 import { ForbiddenErr } from "../exception/ForbiddenError";
+import { ResponseCustom } from "../utils/expressCustom";
 export const adminMiddleware = async (
   req: Request,
-  _: Response,
+  _: ResponseCustom,
   next: NextFunction
 ) => {
-  console.log(req.userInfo);
-  if (req.userInfo?.role == "admin") next();
-  else {
-    throw new ForbiddenErr({
-      errorMessage: "You do not have sufficient rights to access here",
-      errorCode: AuthErrorCode.FORBIDDEN_ERROR,
-    });
+  if (req.userInfo.role === "admin") {
+    return next();
   }
+  throw new ForbiddenErr({ errorCode: ErrorCode.ADMIN_ISNT, errorMessage: "Permission Error" })
+
 };

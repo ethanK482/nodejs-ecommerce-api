@@ -31,10 +31,7 @@ export class Product extends BaseEntity  {
   @Column("decimal", { name: "price", precision: 8, scale: 2 })
   price: string;
 
-  @Column("int", { name: "totalQty" })
-  totalQty: number;
-
-  @Column("int", { name: "totalSold" })
+  @Column("int", { name: "totalSold", default: 0})
   totalSold: number;
 
   @ManyToOne(() => Category, (category) => category.products, {
