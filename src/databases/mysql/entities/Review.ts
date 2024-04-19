@@ -10,10 +10,10 @@ import {
 import { Product } from "./Product";
 import { User } from "./User";
 
-@Index("review_userid_foreign", ["userId"], {})
 @Index("review_productid_foreign", ["productId"], {})
+@Index("review_userid_foreign", ["userId"], {})
 @Entity("Review", { schema: "han_shop" })
-export class Review extends BaseEntity{
+export class Review extends BaseEntity  {
   @PrimaryGeneratedColumn({ type: "bigint", name: "id", unsigned: true })
   id: string;
 

@@ -4,7 +4,7 @@ import { ResponseCustom } from "../utils/expressCustom";
 import { HttpStatusCode } from "../utils/httpStatusCode";
 import { sendEmail } from "../utils/mail";
 import generateVerifyForm from "./generateVerifyForm";
-const getSendMaiInfo = (purpose: string, email: string) => {
+const getSendMaiInfo = (purpose: string, email: string, clientLink?: string) => {
     const params = encodeURIComponent(Jwt.generateVerifyEmailToken(email))
     switch (purpose) {
         case "verify": {
@@ -12,7 +12,7 @@ const getSendMaiInfo = (purpose: string, email: string) => {
             return { verifyLink, action: "Verify Email" }
         }
         case "resetPassword": {
-            const verifyLink = `http://${envConfig.getHost}:${envConfig.portServer}/api/user/resetPassword/${params}`;
+            const verifyLink = `${clientLink}/${params}`;
             return { verifyLink, action: "Reset password" }
         }
         default: return {};
@@ -20,8 +20,8 @@ const getSendMaiInfo = (purpose: string, email: string) => {
     }
 }
 
-const sendVerifyLink = (response: ResponseCustom, email: string, purpose: string) => {
-    const { verifyLink, action } = getSendMaiInfo(purpose, email);
+const sendVerifyLink = (response: ResponseCustom, email: string, purpose: string, clientLink?: string) => {
+    const { verifyLink, action } = getSendMaiInfo(purpose, email, clientLink);
     sendEmail({ email, subject: action as string, html: generateVerifyForm(action as string, verifyLink as string) })
     return response.status(HttpStatusCode.OK).json({
         message: `Please check ${email} to ${action}`,

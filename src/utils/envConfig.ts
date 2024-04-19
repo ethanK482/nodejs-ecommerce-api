@@ -5,9 +5,6 @@ class ENVConfig {
   get isProduction(): boolean {
     return process.env.NODE_ENV === "production";
   }
-  get isDevelopment(): boolean {
-    return process.env.NODE_ENV === "development";
-  }
   get getHost(): string {
     return process.env.HOST!;
   }
@@ -42,19 +39,16 @@ class ENVConfig {
   get getJwtRefreshSecretKey(): string {
     return process.env.JWT_REFRESH_SECRET_KEY!;
   }
+  get getCloudinaryName(): string{
+    return process.env.CLOUDINARY_NAME!;
+  }
+  get getCloudinaryKey(): string{
+    return process.env.CLOUDINARY_KEY!;
+  }
 
-
-
-  // get JWTRefreshSecretKey(): string {
-  //   return process.env.JWT_SECRET_REFRESH_KEY!;
-  // }
-  // get getAccessTokenExpireTime(): string {
-  //   return process.env.EXPIRE_ACCESS_IN!
-  // }
-  // get getRefreshTokenExpireTime(): string {
-  //   return process.env.EXPIRE_REFRESH_IN!
-  // }
-
+  get getCloudinarySecret(): string{
+    return process.env.CLOUDINARY_SECRET!;
+  }
 
 
 }
