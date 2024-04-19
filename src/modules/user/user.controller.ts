@@ -4,7 +4,7 @@ import ErrorCode from "../../utils/ErrorCode";
 import { ResponseCustom } from "../../utils/expressCustom";
 import hashing from "../../utils/hashing";
 import userService from "./user.service";
-import "express-async-error"
+import "express-async-errors"
 import { BadRequestErr } from "../../exception/BadRequestError";
 import sendVerifyLink from "../../heplers/sendVerifyLink";
 import { validationResult } from "express-validator";
