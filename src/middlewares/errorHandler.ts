@@ -14,7 +14,7 @@ export const errorHandler = (
   console.log(err)
   if ((err as any).type === "entity.parse.failed") {
     return res.status(HttpStatusCode.BAD_REQUEST).json({
-      message: `Internal Error 400`,
+      message: `Error 400`,
       errors: {
         errorCode: ErrorCode.INVALID_FORMAT,
         errorMessage: `Syntax body`,
@@ -29,7 +29,7 @@ export const errorHandler = (
   }
   if ((err as any).code === "LIMIT_FILE_SIZE") {
     return res.status(HttpStatusCode.BAD_REQUEST).json({
-      message: `Internal Error 400`,
+      message: `Error 400`,
       errors: {
         errorCode: ErrorCode.FAILED_VALIDATE_BODY,
         errorMessage: `File size to large. Max is ${maxFileSize}KB`,

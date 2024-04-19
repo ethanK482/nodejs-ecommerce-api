@@ -7,7 +7,7 @@ import { BadRequestErr } from "../../exception/BadRequestError";
 import ErrorCode from "../../utils/ErrorCode";
 import getImageDeletePath from "../../heplers/getImagePath";
 import deleteImages from "../../heplers/deleteImage";
-import "express-async-error"
+import 'express-async-errors';
 class ProductService {
     async getAndCountProduct
         (skip: number, take: number, name: string, categoryId: string, minPrice: string, maxPrice: string, sort: string) {

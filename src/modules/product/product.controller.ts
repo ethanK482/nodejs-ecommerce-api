@@ -7,7 +7,7 @@ import ErrorCode from "../../utils/ErrorCode";
 import getImageDeletePath from "../../heplers/getImagePath";
 import deleteImages from "../../heplers/deleteImage";
 import productService from "./product.service";
-import "express-async-error"
+import 'express-async-errors';
 class ProductController {
     async createProduct(request: Request, response: ResponseCustom, next: NextFunction) {
         try {
