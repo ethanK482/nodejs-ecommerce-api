@@ -29,6 +29,9 @@ export class Review extends BaseEntity  {
   @Column("int", { name: "rating" })
   rating: number;
 
+  @Column("datetime", { name: "createdAt" })
+  createdAt: Date;
+  
   @ManyToOne(() => Product, (product) => product.reviews, {
     onDelete: "NO ACTION",
     onUpdate: "NO ACTION",

@@ -27,13 +27,12 @@ class CouponController {
 
     async editCoupon(request: Request, response: ResponseCustom, next: NextFunction) {
         try {
+            const errors = validationResult(request);
+            if (!errors.isEmpty()) throw new RequestValidationError(errors.array());
             const { code, startDate, endDate, discount } = request.body;
             const { couponId } = request.params;
-            if (!couponId) throw new BadRequestErr({ errorCode: ErrorCode.MISS_PARAMS, errorMessage: "CouponId is required to edit" });
-            if (code) {
-                const couponExist = await couponService.findCouponByCode(code);
-                if (couponExist) throw new BadRequestErr({ errorCode: ErrorCode.EXIST, errorMessage: "Duplicate coupon code" });
-            }
+            const couponExist = await couponService.findCouponByCode(code);
+            if (couponExist) throw new BadRequestErr({ errorCode: ErrorCode.EXIST, errorMessage: "Duplicate coupon code" });
             const editedCoupon = await couponService.editCoupon({ code, startDate, endDate, discount } as CouponDTO, couponId);
             return response.status(HttpStatusCode.OK).json({ message: "Edit coupon successfully", data: { editedCoupon } });
 
@@ -46,7 +45,6 @@ class CouponController {
     async deleteCoupon(request: Request, response: ResponseCustom, next: NextFunction) {
         try {
             const { couponId } = request.params;
-            if (!couponId) throw new BadRequestErr({ errorCode: ErrorCode.MISS_PARAMS, errorMessage: "CouponId is required to delete" });
             let couponExist = await couponService.findCouponById(couponId);
             if (!couponExist) throw new BadRequestErr({ errorCode: ErrorCode.NOT_FOUND, errorMessage: "Coupon not found" });
             couponService.deleteCoupon(couponId);

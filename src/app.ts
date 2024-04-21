@@ -7,6 +7,7 @@ import env from "./utils/envConfig";
 import AuthErrorCode from "./utils/ErrorCode";
 import mysqlDatabase from "./databases/mysqlDatabase";
 import cookieParser from 'cookie-parser';
+import orderController from "./modules/order/order.controller";
 class App {
   app: Application;
 
@@ -19,6 +20,7 @@ class App {
 
   private middleware() {
     this.app.use(cors());
+    this.app.post("/api/order/webhook", express.raw({ type: 'application/json' }),  orderController.listenEvent)
     this.app.use(express.json());
     this.app.use(express.urlencoded({ extended: true }));
     this.app.use(cookieParser());
