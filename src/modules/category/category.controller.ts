@@ -33,7 +33,6 @@ class CategoryController {
     async editCategory(request: Request, response: ResponseCustom, next: NextFunction) {
         try {
             const { categoryId } = request.params;
-            if ( !categoryId ) throw new BadRequestErr({ errorCode: ErrorCode.MISS_PARAMS, errorMessage: "categoryId is required" });
             const file = request.file;
             const { name } = request.body;
             const category = await categoryService.editCategory(categoryId,  name, file as Express.Multer.File);

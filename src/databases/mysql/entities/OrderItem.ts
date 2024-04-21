@@ -14,11 +14,10 @@ export class OrderItem extends BaseEntity {
     @Column("int", { name: "quantity" })
     quantity: number;
 
-    @ManyToOne(() => Order, (order) => order.orderItems, {
-        onDelete: "NO ACTION",
-        onUpdate: "NO ACTION",
-    })
-    @JoinColumn([{ name: "orderId", referencedColumnName: "id" }])
+    @Column("bigint", { name: "orderId", unsigned: true })
+    orderId: string;
+    @ManyToOne(() => Order, order => order.orderItems, { onDelete: "NO ACTION", onUpdate: "NO ACTION" })
+    @JoinColumn([{ name: "orderId", referencedColumnName: "id" },
+    ])
     order: Order;
-
 }

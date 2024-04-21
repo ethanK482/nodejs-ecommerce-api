@@ -50,6 +50,13 @@ class ENVConfig {
     return process.env.CLOUDINARY_SECRET!;
   }
 
+  get getStripeSecretKey(): string{
+    return process.env.STRIPE_SECRET_KEY!;
+  }
+
+  get getStripeEndPointSecret(): string{
+    return process.env.STRIPE_ENDPOINT_SECRET!;
+  }
 
 }
 export default new ENVConfig();

@@ -30,7 +30,7 @@ class ProductService {
     }
 
     async createProduct({ name, categoryId, price, description = null, stock, images }: ProductDTO) {
-        const createProduct = Product.create({ name, categoryId, description, price })
+        const createProduct = Product.create({ name, categoryId, description, price: Number(price) })
         const newProduct = await createProduct.save();
         const productStock = await Promise.all(stock.map(async (stockItem) => {
             const createStock = ProductStock.create({ ...stockItem, productId: newProduct.id })
@@ -64,7 +64,7 @@ class ProductService {
             return await createStock.save();
         }))
         productExist.categoryId = categoryId;
-        productExist.price = price;
+        productExist.price = Number(price);
         productExist.name = name;
         productExist.description = description;
         const editedProduct = await productExist.save();

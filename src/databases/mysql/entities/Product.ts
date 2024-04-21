@@ -29,7 +29,7 @@ export class Product extends BaseEntity  {
   categoryId: string | null;
 
   @Column("decimal", { name: "price", precision: 8, scale: 2 })
-  price: string;
+  price: number;
 
   @Column("int", { name: "totalSold", default: 0})
   totalSold: number;
