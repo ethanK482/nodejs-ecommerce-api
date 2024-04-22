@@ -5,9 +5,9 @@ import couponService from './coupon.service';
 import { BadRequestErr } from '../../exception/BadRequestError';
 import ErrorCode from '../../utils/ErrorCode';
 import { HttpStatusCode } from '../../utils/httpStatusCode';
-import { CouponDTO } from './type';
 import { validationResult } from 'express-validator';
 import { RequestValidationError } from '../../exception/RequestValidationError';
+import { CouponInfo } from './type';
 class CouponController {
     async createCoupon(request: Request, response: ResponseCustom, next: NextFunction) {
         try {
@@ -33,7 +33,7 @@ class CouponController {
             const { couponId } = request.params;
             const couponExist = await couponService.findCouponByCode(code);
             if (couponExist) throw new BadRequestErr({ errorCode: ErrorCode.EXIST, errorMessage: "Duplicate coupon code" });
-            const editedCoupon = await couponService.editCoupon({ code, startDate, endDate, discount } as CouponDTO, couponId);
+            const editedCoupon = await couponService.editCoupon({ code, startDate, endDate, discount } as CouponInfo, couponId);
             return response.status(HttpStatusCode.OK).json({ message: "Edit coupon successfully", data: { editedCoupon } });
 
         } catch (error) {

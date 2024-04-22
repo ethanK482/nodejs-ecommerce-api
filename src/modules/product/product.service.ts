@@ -2,12 +2,12 @@ import { Between, LessThan, Like } from "typeorm";
 import { Product } from "../../databases/mysql/entities/Product";
 import { ProductStock } from "../../databases/mysql/entities/ProductStock";
 import { ProductImage } from "../../databases/mysql/entities/ProductImage";
-import { ProductDTO, ProductEdit } from "./type";
 import { BadRequestErr } from "../../exception/BadRequestError";
 import ErrorCode from "../../utils/ErrorCode";
 import getImageDeletePath from "../../heplers/getImagePath";
 import deleteImages from "../../heplers/deleteImage";
 import 'express-async-errors';
+import { ProductEditInfo, ProductInfo } from "./type";
 class ProductService {
     async getAndCountProduct
         (skip: number, take: number, name: string, categoryId: string, minPrice: string, maxPrice: string, sort: string) {
@@ -29,7 +29,7 @@ class ProductService {
         return result;
     }
 
-    async createProduct({ name, categoryId, price, description = null, stock, images }: ProductDTO) {
+    async createProduct({ name, categoryId, price, description = null, stock, images }: ProductInfo) {
         const createProduct = Product.create({ name, categoryId, description, price: Number(price) })
         const newProduct = await createProduct.save();
         const productStock = await Promise.all(stock.map(async (stockItem) => {
@@ -43,7 +43,7 @@ class ProductService {
         }))
         return { ...newProduct, productStock, productImages }
     }
-    async editProduct({ productId, files, name, categoryId, price, description = null, stock }: ProductEdit) {
+    async editProduct({ productId, files, name, categoryId, price, description = null, stock }: ProductEditInfo) {
         const productExist = await this.findProductById(productId);
         if (!productExist) throw new BadRequestErr({ errorCode: ErrorCode.NOT_FOUND, errorMessage: "Product not found" })
         let productImages: ProductImage[] = [];

@@ -1,10 +1,10 @@
 import { Review } from "../../databases/mysql/entities/Review";
 import { BadRequestErr } from "../../exception/BadRequestError";
 import ErrorCode from "../../utils/ErrorCode";
-import { ReviewDTO, ReviewEditInfo } from "./type";
+import { ReviewEditInfo, ReviewInfo } from "./type";
 
 class ReviewService {
-    async createReview(reviewInfo: ReviewDTO) {
+    async createReview(reviewInfo: ReviewInfo) {
         const { productId, userId } = reviewInfo;
         const reviewExist = await Review.findOne({ where: { userId, productId } });
         if (reviewExist) {

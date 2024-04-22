@@ -1,4 +1,4 @@
-export interface CouponDTO {
+export interface CouponInfo {
     userId: string;
     code: string;
     startDate: Date;

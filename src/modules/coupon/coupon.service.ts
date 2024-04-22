@@ -1,16 +1,16 @@
 import 'express-async-errors';
-import { CouponDTO } from './type';
 import { Coupon } from '../../databases/mysql/entities/Coupon';
 import { BadRequestErr } from '../../exception/BadRequestError';
 import ErrorCode from '../../utils/ErrorCode';
+import { CouponInfo } from './type';
 class CouponService {
-    async createCoupon(coupon: CouponDTO) {
+    async createCoupon(coupon: CouponInfo) {
         const { userId, code, startDate, endDate, discount } = coupon;
         const newCoupon = Coupon.create({ userId, code, discount, startDate, endDate })
         return await newCoupon.save();
     }
 
-    async editCoupon(coupon: CouponDTO, couponId: string) {
+    async editCoupon(coupon: CouponInfo, couponId: string) {
         const { code, startDate, endDate, discount } = coupon;
         let couponExist = await this.findCouponById(couponId);
         if (!couponExist) throw new BadRequestErr({ errorCode: ErrorCode.NOT_FOUND, errorMessage: "Coupon not found" });

@@ -1,6 +1,6 @@
 import Stripe from "stripe";
 import envConfig from "../../utils/envConfig";
-import { OrderItemInfo } from "./type";
+import { OrderItemInfo } from "../order/type";
 import productService from "../product/product.service";
 import { BadRequestErr } from "../../exception/BadRequestError";
 import ErrorCode from "../../utils/ErrorCode";

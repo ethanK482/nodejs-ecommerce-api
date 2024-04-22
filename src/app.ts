@@ -8,6 +8,7 @@ import AuthErrorCode from "./utils/ErrorCode";
 import mysqlDatabase from "./databases/mysqlDatabase";
 import cookieParser from 'cookie-parser';
 import orderController from "./modules/order/order.controller";
+import stripeController from "./modules/stripe/stripe.controller";
 class App {
   app: Application;
 
@@ -20,7 +21,8 @@ class App {
 
   private middleware() {
     this.app.use(cors());
-    this.app.post("/api/order/webhook", express.raw({ type: 'application/json' }),  orderController.listenEvent)
+    this.app.use(helmet());
+    this.app.post("/webhook", express.raw({ type: 'application/json' }),  stripeController.listenEvent)
     this.app.use(express.json());
     this.app.use(express.urlencoded({ extended: true }));
     this.app.use(cookieParser());
@@ -50,3 +52,7 @@ class App {
   }
 }
 export default new App();
+function helmet(): any {
+  throw new Error("Function not implemented.");
+}
+

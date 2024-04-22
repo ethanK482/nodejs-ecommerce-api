@@ -1,5 +1,3 @@
-import { Order } from "../../databases/mysql/entities/Order";
-
 export interface OrderItemInfo {
     productId: string;
     quantity: number;

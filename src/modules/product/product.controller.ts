@@ -35,7 +35,6 @@ class ProductController {
     async editProduct(request: Request, response: ResponseCustom, next: NextFunction) {
         try {
             const { productId } = request.params;
-            if (!productId) throw new BadRequestErr({ errorCode: ErrorCode.MISS_PARAMS, errorMessage: "productId is required" });
             const { name, categoryId, price, description, stock } = request.body;
             const files: Express.Multer.File[] = request.files as Express.Multer.File[];
             const stockParsed = JSON.parse(stock)
