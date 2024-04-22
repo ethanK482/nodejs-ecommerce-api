@@ -6,8 +6,8 @@
   "scripts": {
     "dev": "ts-node-dev src/index.ts",
     "test": "jest --watchAll --no-cache",
-    "start": "node -r module-alias/register dist/index.js",
-    "build": "rm -rf dist && mkdir dist && tsc --project tsconfig.build.json",
+    "start": "node dist/index.js",
+    "build": "rm -rf dist && mkdir dist && tsc --project tsconfig.build.json"
   },
   "jest": {
     "preset": "ts-jest",

@@ -51,6 +51,6 @@ COPY --chown=node:node --from=build /usr/src/app/package.json ./package.json
 COPY --chown=node:node --from=build /usr/src/app/dist ./dist
 
 # Start run in production environment
-CMD [ "node", "-r", "module-alias/register", "/dist/index.js" ]
+CMD [ "yarn", "start" ]
 
 EXPOSE 4000

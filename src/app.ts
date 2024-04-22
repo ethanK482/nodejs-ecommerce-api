@@ -7,8 +7,8 @@ import env from "./utils/envConfig";
 import AuthErrorCode from "./utils/ErrorCode";
 import mysqlDatabase from "./databases/mysqlDatabase";
 import cookieParser from 'cookie-parser';
-import orderController from "./modules/order/order.controller";
 import stripeController from "./modules/stripe/stripe.controller";
+import helmet from "helmet"
 class App {
   app: Application;
 
@@ -52,7 +52,3 @@ class App {
   }
 }
 export default new App();
-function helmet(): any {
-  throw new Error("Function not implemented.");
-}
-
