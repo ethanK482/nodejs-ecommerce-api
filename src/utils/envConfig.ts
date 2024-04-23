@@ -20,6 +20,9 @@ class ENVConfig {
   get getDbPort(): number {
     return Number(process.env.DB_PORT!)
   }
+  get getDbHost(): string {
+    return process.env.DB_HOST!
+  }
   get getDbName(): string {
     return process.env.DB_NAME!;
   }

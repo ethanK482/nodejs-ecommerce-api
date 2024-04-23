@@ -8,7 +8,10 @@ import AuthErrorCode from "./utils/ErrorCode";
 import mysqlDatabase from "./databases/mysqlDatabase";
 import cookieParser from 'cookie-parser';
 import stripeController from "./modules/stripe/stripe.controller";
-import helmet from "helmet"
+import helmet from "helmet";
+import swaggerUi from "swagger-ui-express";
+import swaggerJsdoc from "swagger-jsdoc";
+import swaggerDocument from "./utils/swagger.json"
 class App {
   app: Application;
 
@@ -30,6 +33,7 @@ class App {
 
   private routes() {
     this.app.use("/api", router);
+    this.app.use('/', swaggerUi.serve, swaggerUi.setup(swaggerJsdoc(swaggerDocument)));
     this.app.use("*", () => {
       throw new NotFoundErr({
         errorCode: AuthErrorCode.NOT_FOUND,
@@ -47,7 +51,7 @@ class App {
     const HOST = env.getHost;
     await mysqlDatabase.connect();
     this.app.listen(PORT, () => {
-      console.log(`Server running at port ${HOST}:${PORT} !!!!`);
+      console.log(`Server running at port ${HOST}:${PORT} !!`);
     });
   }
 }

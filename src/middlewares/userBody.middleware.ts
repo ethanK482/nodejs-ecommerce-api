@@ -38,7 +38,7 @@ const loginMiddleware = checkSchema({
 });
 
 const resetPasswordMiddleware = checkSchema({
-  encryptEmail: {
+  resetToken: {
     notEmpty: { errorMessage: "Invalid verification" },
   },
   newPassword: {

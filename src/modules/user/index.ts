@@ -9,7 +9,7 @@ userRouter.post('/register', registerMiddleware, userController.register);// reg
 userRouter.get('/verify/:encryptEmail', userController.verifyEmail);// verify email user
 userRouter.post('/verify-request', userController.verifyEmailLink); // request to get verify email
 userRouter.post('/login', loginMiddleware, userController.login);// register user
-userRouter.post('/logout',authMiddleware , userController.logout);// register user
+userRouter.get('/logout',authMiddleware , userController.logout);// register user
 userRouter.get('/profile', authMiddleware, userController.userProfile);
 userRouter.get('/forgot-password',forgotPasswordMiddleWare,  userController.forgotPassword);
 userRouter.post('/reset-password', resetPasswordMiddleware,  userController.resetPassword);

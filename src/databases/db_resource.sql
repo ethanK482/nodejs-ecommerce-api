@@ -3,7 +3,8 @@ CREATE TABLE `Review`(
     `userId` BIGINT UNSIGNED NOT NULL,
     `productId` BIGINT UNSIGNED NOT NULL,
     `message` TEXT NULL,
-    `rating` INT NOT NULL
+    `rating` INT NOT NULL,
+    `createdAt` DATETIME NOT NULL
 );
 CREATE TABLE `User`(
     `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -13,12 +14,13 @@ CREATE TABLE `User`(
     `role` VARCHAR(20) NOT NULL,
     `password` VARCHAR(255) NOT NULL,
     `isVerifyEmail` TINYINT DEFAULT 0,
-    `shippingAddress` VARCHAR(255) NULL,
+    `shippingAddress` VARCHAR(255) NULL
 );
 CREATE TABLE `OrderItem`(
     `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `productId` BIGINT UNSIGNED NOT NULL,
-    `quantity` INT NOT NULL
+    `quantity` INT NOT NULL,
+    `orderId` BIGINT UNSIGNED NOT NULL
 );
 CREATE TABLE `Order`(
     `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -30,8 +32,8 @@ CREATE TABLE `Order`(
     `currency`  VARCHAR(50) NOT NULL,
     `totalPrice` DECIMAL(8, 2) NOT NULL,
     `deliverStatus`VARCHAR(100) NOT NULL,
-    `deliveredAt` DATETIME NOT NULL,
-    `createAt` DATETIME NOT NULL
+    `createdAt` DATETIME NOT NULL,
+    `paymentId`VARCHAR(100) NOT NULL
 );
 CREATE TABLE `Category`(
     `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -44,7 +46,6 @@ CREATE TABLE `Product`(
     `description` TEXT NULL,
     `categoryId` BIGINT UNSIGNED,
     `price` DECIMAL(8, 2) NOT NULL,
-    `totalQty` INT NOT NULL,
     `totalSold` INT NOT NULL
 );
 CREATE TABLE `productImage`(
@@ -83,7 +84,7 @@ ALTER TABLE
 ALTER TABLE
     `Review` ADD CONSTRAINT `review_userid_foreign` FOREIGN KEY(`userId`) REFERENCES `User`(`id`);
 ALTER TABLE
-    `OrderItem` ADD CONSTRAINT `orderitem_id_foreign` FOREIGN KEY(`id`) REFERENCES `Order`(`id`);
+    `OrderItem` ADD CONSTRAINT `orderitem_id_foreign` FOREIGN KEY(`orderId`) REFERENCES `Order`(`id`);
 ALTER TABLE
     `Review` ADD CONSTRAINT `review_productid_foreign` FOREIGN KEY(`productId`) REFERENCES `Product`(`id`);
 

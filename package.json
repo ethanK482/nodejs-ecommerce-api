@@ -4,10 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "ts-node-dev src/index.ts",
+    "dev": "ts-node-dev --watch  src/swagger/apidocs.yml src/index.ts",
     "test": "jest --watchAll --no-cache",
     "start": "node dist/index.js",
-    "build": "rm -rf dist && mkdir dist && tsc --project tsconfig.build.json"
+    "build-t": "rm -rf dist && mkdir dist && tsc --project tsconfig.build.json",
+    "copy-files": "cp ./src/utils/apidocs.yml ./dist/utils",
+    "build": "yarn build-t && yarn copy-files"
   },
   "jest": {
     "preset": "ts-jest",
@@ -30,6 +32,8 @@
     "@types/jsonwebtoken": "^9.0.5",
     "@types/nodemailer": "^6.4.14",
     "@types/supertest": "^2.0.16",
+    "@types/swagger-jsdoc": "^6.0.4",
+    "@types/swagger-ui-express": "^4.1.6",
     "bcrypt": "^5.1.1",
     "cloudinary": "^2.1.0",
     "cookie-parser": "^1.4.6",
@@ -51,6 +55,8 @@
     "nodemailer": "^6.9.7",
     "stripe": "^15.3.0",
     "supertest": "^6.3.3",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.0",
     "ts-jest": "^29.1.1",
     "ts-node-dev": "^2.0.0",
     "typeorm": "^0.3.20",

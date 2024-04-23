@@ -154,8 +154,8 @@ class UserController {
     try {
       const errors = validationResult(request);
       if (!errors.isEmpty()) throw new RequestValidationError(errors.array());
-      const { newPassword, encryptEmail } = request.body;
-      const token = decodeURIComponent(encryptEmail);
+      const { newPassword, resetToken } = request.body;
+      const token = decodeURIComponent(resetToken);
       const { email } = Jwt.verifyEmailToken(token);
       userService.changePassword(email, newPassword);
       return response.status(HttpStatusCode.OK).json({

@@ -13,7 +13,7 @@ class MysqlDatabase {
   uiShopConnection = {
     nameSchema: envConfig.getDbName,
     dataSource: new DataSource({
-      host: envConfig.getHost,
+      host: envConfig.getDbHost,
       port: Number(envConfig.getDbPort),
       username: envConfig.getDbUserName,
       password: envConfig.getDbPassword,
@@ -33,7 +33,8 @@ class MysqlDatabase {
     try {
       await dataSource.initialize();
       console.log(`Connect to ${nameSchema} successfully! `)
-    } catch {
+    } catch(error) {
+      console.log(error)
       console.log(`Connect to ${nameSchema} failed! `)
     }
 

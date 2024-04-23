@@ -1,0 +1,355 @@
+paths:
+  /user/register:
+    post:
+      tags:
+        - user
+      summary: public
+      description: Han ecommerce user-api 
+      operationId: user
+      requestBody:
+        required: true
+        content:
+          application/json: 
+            schema:
+              type: object
+              properties: 
+                firstName:
+                  type: string
+                lastName:
+                   type: string
+                email:
+                  type: string
+                password:
+                  type: string
+      responses:
+        '200':
+          description: Successfully registered user
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RegisteredUserResponse'
+        '400':
+          description: Duplicate register email
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RegisteredUserBadRequest'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InternalError'
+  /user/login:
+    post:
+      tags:
+        - user
+      summary: public
+      description: Han ecommerce user-api 
+      operationId: user
+      requestBody:
+        required: true
+        content:
+          application/json: 
+            schema:
+              type: object
+              properties: 
+                email:
+                  type: string
+                password:
+                  type: string
+      responses:
+        '200':
+          description: 'Login successfully'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoginUserResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InternalError'
+  /user/verify-request:
+    post:
+      tags:
+        - user
+      summary: public (Resend verify email. <use when email from register was expired>)
+      description: Han ecommerce user-api 
+      operationId: user
+      requestBody:
+        required: true
+        content:
+          application/json: 
+            schema:
+              type: object
+              properties: 
+                email:
+                  type: string
+      responses:
+        '200':
+          description: 'Login successfully'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RegisteredUserResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InternalError'
+  /user/logout:
+    get:
+      tags:
+        - user
+      summary: private
+      description: Han ecommerce user-api 
+      operationId: user
+      responses:
+        '200':
+          description: 'Logout successfully'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LogoutUserResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InternalError'
+  /user/forgot-password:
+    post:
+      tags:
+        - user
+      summary: public
+      description: Han ecommerce user-api 
+      operationId: user
+      requestBody:
+        required: true
+        content:
+          application/json: 
+            schema:
+              type: object
+              properties: 
+                email, :
+                  type: string
+                clientLink:
+                  type: string
+                  example: This is the url you want the user enter new password (example -> https://hanshop/reset-passowrd)
+      responses:
+        '200':
+          description: 'successfully, we will use "https://hanshop/reset-passowrd" and add our token to params "https://hanshop/reset-passowrd/resetToken". This token is a require content for reset passowrd'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResetPasswordResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InternalError'
+  /user/reset-password:
+    post:
+      tags:
+        - user
+      summary: public
+      description: Han ecommerce user-api 
+      operationId: user
+      requestBody:
+        required: true
+        content:
+          application/json: 
+            schema:
+              type: object
+              properties: 
+                newPassword, :
+                  type: string
+                resetToken:
+                  type: string
+                  example: Get from forgot your params. Please read forgot-password api if you have any confuse
+      responses:
+        '200':
+          description: 'successfully, we will use "https://hanshop/reset-passowrd" and add our token to params "https://hanshop/reset-passowrd/our-token". This token is a require content for reset password. "This token will expired in 5 minutes"  '
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResetPasswordResponse'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenExpired'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InternalError'
+  /user/profile:
+    get:
+      tags:
+        - user
+      summary: private
+      description: Han ecommerce user-api 
+      operationId: user
+      requestBody:
+        required: true
+      responses:
+        '200':
+          description: 'Successfully'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserProfileResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InternalError'
+  /user/change-password:
+    post:
+      tags:
+        - user
+      summary: private
+      description: Han ecommerce user-api 
+      operationId: user
+      requestBody:
+        required: true
+        content:
+          application/json: 
+            schema:
+              type: object
+              properties: 
+                newPassword, :
+                  type: string
+      responses:
+        '200':
+          description: 'Successfully'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChangePasswordResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InternalError'
+components:
+  schemas:
+    RegisteredUserResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          example: 'Please check [email] to verify your account.'
+
+    RegisteredUserBadRequest:
+      type: object
+      properties:
+        message:
+          type: string
+          example: 'Error 400'
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              errorCode:
+                type: string
+                example: '100202'
+              errorMessage:
+                type: string
+                example: 'Email has been registered'
+    LoginUserResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          example: 'Login successfully'
+    LogoutUserResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          example: 'Logout successfully'
+    ForgotUserResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          example: 'Please check [email] to Reset password'
+    ResetPasswordResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          example: 'Reset password successfully'
+    ChangePasswordResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          example: 'Change password successfully'
+    UserProfileResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          example: 'Successfully'
+        data: 
+          type: object
+          properties:
+            email:
+              type: string
+              example: 'test@gmail.com'
+            firstName:
+              type: string
+              example: 'A'
+            lastName:
+              type: string
+              example: 'Nguyen'
+            role:
+              type: string
+              example: 'user'
+
+    InternalError:
+      type: object
+      properties:
+        message:
+          type: string
+          example: 'Internal Error 500'
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              errorCode:
+                type: string
+                example: '100207'
+              errorMessage:
+                type: string
+                example: 'This error comes from our server, we will provide information soon'
+    TokenExpired:
+      type: object
+      properties:
+        message:
+          type: string
+          example: 'Error 400'
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              errorCode:
+                type: string
+                example: '100210'
+              errorMessage:
+                type: string
+                example: 'Your token is expired'

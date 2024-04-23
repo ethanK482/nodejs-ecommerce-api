@@ -1,0 +1,17 @@
+{
+    "definition": {
+        "openapi": "3.0.0",
+        "info": {
+            "title": "HAN Ecommerce API",
+            "version": "0.1.0"
+        },
+        "servers": [
+            {
+                "url": "http://localhost:4000/api"
+            }
+        ]
+    },
+    "apis": [
+        "./dist/utils/*.yml"
+    ]
+}
